@@ -6,14 +6,18 @@ const number = document.querySelector("span");
 
 number.innerText = 0;
 
-//action을 통해 countModifier 에게 메시지를 보낼 수 있음
+//선언 해두고 쓰면 js가 틀렸을 때 알려줌
+const ADD = "ADD";
+const MINUS = "MINUS";
+
 const countModifier = (count = 0, action) => {
-  if (action.type === "ADD") {
-    return count + 1;
-  } else if (action.type === "MINUS") {
-    return count - 1;
-  } else {
-    return count;
+  switch (action.type) {
+    case ADD:
+      return count + 1;
+    case MINUS:
+      return count - 1;
+    default:
+      return count;
   }
 };
 
@@ -23,9 +27,7 @@ const onChange = () => {
   number.innerText = countStore.getState();
 };
 
-//store에 있는 data가 변경될 때 마다 onChange를 출력함
 countStore.subscribe(onChange);
 
-//button에 action 붙이기
-add.addEventListener("click", () => countStore.dispatch({ type: "ADD" }));
-minus.addEventListener("click", () => countStore.dispatch({ type: "MINUS" }));
+add.addEventListener("click", () => countStore.dispatch({ type: ADD }));
+minus.addEventListener("click", () => countStore.dispatch({ type: MINUS }));
