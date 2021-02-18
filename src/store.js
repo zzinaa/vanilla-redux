@@ -1,19 +1,8 @@
 import { createStore } from "redux";
-import { createAction, createReducer } from "@reduxjs/toolkit";
+import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
 
 const addToDo = createAction("ADD");
 const deleteToDo = createAction("DELETE");
-
-// const reducer = (state = [], action) => {
-//   switch (action.type) {
-//     case addToDo.type:
-//       return [{ text: action.payload, id: Date.now() }, ...state];
-//     case deleteToDo.type:
-//       return state.filter((toDo) => toDo.id !== action.payload);
-//     default:
-//       return state;
-//   }
-// };
 
 //위의 것을 아래처럼 바꿀 수 있음(switch, case 없이)
 //아래 처럼 쓰면 state를 수정(mutate) 하기 쉽게 만들어줌
@@ -26,7 +15,7 @@ const reducer = createReducer([], {
   //return 함 (방법 2. return 하여 state를 새로 만든다 - 원래 toolkit 쓰기 전처럼)
 });
 
-const store = createStore(reducer);
+const store = configureStore({ reducer });
 
 export const actionCreators = {
   addToDo,
